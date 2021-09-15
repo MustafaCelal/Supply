@@ -31,14 +31,14 @@ namespace Business.Services
             _orderPayDetailRepository.DeleteMultiple(entities);
         }
 
-        public OrderPayDetail Get(Expression<Func<OrderPayDetail, bool>> filter)
+        public OrderPayDetail GetById(int id)
         {
-            return _orderPayDetailRepository.Get(filter);
+            return _orderPayDetailRepository.Get(opd=>opd.Id==id);
         }
 
-        public List<OrderPayDetail> GetAll(Expression<Func<OrderPayDetail, bool>> filter = null)
+        public List<OrderPayDetail> GetAll()
         {
-            return _orderPayDetailRepository.GetAll(filter);
+            return _orderPayDetailRepository.GetAll();
         }
 
         public void Update(OrderPayDetail entity)

@@ -7,6 +7,6 @@
         public decimal RecievedMoney { get; set; }
         public decimal PreviousDept { get; set; }
         public decimal LastDept { get; set; }
-        public virtual OrderDetail OrderDetail { get; set; }
+        //public virtual OrderDetail OrderDetail { get; set; }
     }
 }

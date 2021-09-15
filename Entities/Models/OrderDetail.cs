@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Entities.Models
 {
@@ -9,7 +10,7 @@ namespace Entities.Models
         public int CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalPrice { get; set; }
-        public virtual Order Order { get; set; }
-        public virtual Customer Customer { get; set; }
+        //public virtual ICollection<Order> Order { get; set; }
+        //public virtual Customer Customer { get; set; }
     }
 }

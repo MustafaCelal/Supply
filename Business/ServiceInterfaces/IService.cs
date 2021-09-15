@@ -7,8 +7,8 @@ namespace Business.ServiceInterfaces
 {
     public interface IService<TEntity> where TEntity : class, IEntity, new()
     {
-        List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null);
-        TEntity Get(Expression<Func<TEntity, bool>> filter);
+        List<TEntity> GetAll();
+        TEntity GetById(int id);
         void Add(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);

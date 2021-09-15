@@ -1,4 +1,6 @@
-﻿using Entities.Models;
+﻿using DataAccess.Configurations;
+using DataAccess.Seeds;
+using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess
@@ -17,6 +19,20 @@ namespace DataAccess
         public DbSet<OrderPayDetail> OrderPayDetails { get; set; }
         public DbSet<Product> Products { get; set; }
 
-       
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Product>().HasKey(x=>x.Id);
+
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderPayDetailConfiguration());
+
+
+            modelBuilder.ApplyConfiguration(new ProductSeed());
+            modelBuilder.ApplyConfiguration(new CustomerSeed());
+
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Business.ServiceInterfaces
 {
-    public interface IOrderDetailService : IService<OrderDetail>
+    public interface ISupplyService : IService<Supply>
     {
     }
 }

@@ -11,12 +11,12 @@ namespace DataAccess
         //{ }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SupplierDemo1;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=SupplierDemo11;Trusted_Connection=true");
         }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
-        public DbSet<OrderPayDetail> OrderPayDetails { get; set; }
+        public DbSet<Supply> Supplies { get; set; }
+        public DbSet<SupplyProduct> SupplyProducts { get; set; }
+        public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,10 +25,9 @@ namespace DataAccess
 
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
-            modelBuilder.ApplyConfiguration(new OrderConfiguration());
-            modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
-            modelBuilder.ApplyConfiguration(new OrderPayDetailConfiguration());
-
+            modelBuilder.ApplyConfiguration(new SupplyConfiguration());
+            modelBuilder.ApplyConfiguration(new SupplyProductConfiguration());
+            modelBuilder.ApplyConfiguration(new PaymentDetailConfiguration());
 
             modelBuilder.ApplyConfiguration(new ProductSeed());
             modelBuilder.ApplyConfiguration(new CustomerSeed());

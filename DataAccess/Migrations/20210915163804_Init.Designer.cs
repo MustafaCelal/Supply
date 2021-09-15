@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210915055927_Init2")]
-    partial class Init2
+    [Migration("20210915163804_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,65 +72,7 @@ namespace DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("OrderDetailId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(7,2)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderDetailId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Entities.Models.OrderDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(7,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("OrderDetails");
-                });
-
-            modelBuilder.Entity("Entities.Models.OrderPayDetail", b =>
+            modelBuilder.Entity("Entities.Models.PaymentDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,18 +84,18 @@ namespace DataAccess.Migrations
                     b.Property<decimal>("LastDept")
                         .HasColumnType("decimal(7,2)");
 
-                    b.Property<int>("OrderDetailId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("PreviousDept")
                         .HasColumnType("decimal(7,2)");
 
                     b.Property<decimal>("RecievedMoney")
                         .HasColumnType("decimal(7,2)");
 
+                    b.Property<int>("SupplyId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("OrderPayDetails");
+                    b.ToTable("PaymentDetails");
                 });
 
             modelBuilder.Entity("Entities.Models.Product", b =>
@@ -218,39 +160,53 @@ namespace DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Order", b =>
+            modelBuilder.Entity("Entities.Models.Supply", b =>
                 {
-                    b.HasOne("Entities.Models.OrderDetail", "OrderDetail")
-                        .WithMany("Order")
-                        .HasForeignKey("OrderDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasOne("Entities.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
-                    b.Navigation("OrderDetail");
+                    b.Property<DateTime>("SupplyDate")
+                        .HasColumnType("datetime2");
 
-                    b.Navigation("Product");
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(7,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Supplies");
                 });
 
-            modelBuilder.Entity("Entities.Models.OrderDetail", b =>
+            modelBuilder.Entity("Entities.Models.SupplyProduct", b =>
                 {
-                    b.HasOne("Entities.Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Navigation("Customer");
-                });
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
-            modelBuilder.Entity("Entities.Models.OrderDetail", b =>
-                {
-                    b.Navigation("Order");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(7,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SupplyProductDetails");
                 });
 #pragma warning restore 612, 618
         }

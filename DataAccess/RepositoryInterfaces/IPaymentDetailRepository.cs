@@ -2,7 +2,8 @@
 
 namespace DataAccess.RepositoryInterfaces
 {
-    public interface IOrderDetailRepository : IEntityRepository<OrderDetail>
+    public interface IPaymentDetailRepository : IEntityRepository<PaymentDetail>
     {
     }
+
 }

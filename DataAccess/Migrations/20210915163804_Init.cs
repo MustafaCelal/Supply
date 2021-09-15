@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccess.Migrations
 {
-    public partial class Init2 : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,19 +24,19 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderPayDetails",
+                name: "PaymentDetails",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderDetailId = table.Column<int>(type: "int", nullable: false),
-                    RecievedMoney = table.Column<decimal>(type: "decimal(7,2)", nullable: false),
+                    SupplyId = table.Column<int>(type: "int", nullable: false),
                     PreviousDept = table.Column<decimal>(type: "decimal(7,2)", nullable: false),
+                    RecievedMoney = table.Column<decimal>(type: "decimal(7,2)", nullable: false),
                     LastDept = table.Column<decimal>(type: "decimal(7,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderPayDetails", x => x.Id);
+                    table.PrimaryKey("PK_PaymentDetails", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,53 +55,34 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderDetails",
+                name: "Supplies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SupplyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(7,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderDetails_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Supplies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "SupplyProductDetails",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderDetailId = table.Column<int>(type: "int", nullable: false),
+                    SupplyId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(7,2)", nullable: false)
+                    UnitPrice = table.Column<decimal>(type: "decimal(7,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_OrderDetails_OrderDetailId",
-                        column: x => x.OrderDetailId,
-                        principalTable: "OrderDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Orders_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_SupplyProductDetails", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
@@ -124,39 +105,24 @@ namespace DataAccess.Migrations
                     { 4, "Maydanoz", 1m, 70 },
                     { 5, "Nane", 1m, 70 }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_CustomerId",
-                table: "OrderDetails",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderDetailId",
-                table: "Orders",
-                column: "OrderDetailId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_ProductId",
-                table: "Orders",
-                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderPayDetails");
+                name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "OrderDetails");
+                name: "PaymentDetails");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Supplies");
+
+            migrationBuilder.DropTable(
+                name: "SupplyProductDetails");
         }
     }
 }

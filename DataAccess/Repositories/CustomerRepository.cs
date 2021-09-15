@@ -4,10 +4,10 @@ using Entities.Models;
 namespace DataAccess.Repositories
 {
 
-    public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
+    public class CustomerRepository : BaseRepository<Customer,AppDbContext>, ICustomerRepository
     {
-        public CustomerRepository(AppDbContext context):base(context)
-        {
-        }
+        //public CustomerRepository(AppDbContext context):base(context)
+        //{
+        //}
     }
 }

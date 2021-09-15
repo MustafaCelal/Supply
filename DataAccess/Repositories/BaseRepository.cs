@@ -8,45 +8,60 @@ using System.Linq.Expressions;
 
 namespace DataAccess.Repositories
 {
-    public class BaseRepository<TEntity> : IEntityRepository<TEntity> where TEntity : class, IEntity, new()
+    public class BaseRepository<TEntity,TContext> : IEntityRepository<TEntity> 
+        where TEntity : class, IEntity, new()
+        where TContext:DbContext,new()
     {
-        protected readonly DbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
-
-        public BaseRepository(DbContext context)
-        {
-            _context = context;
-            _dbSet = context.Set<TEntity>();
-        }
-
         public void Add(TEntity entity)
         {
-            _dbSet.Add(entity);
+            using (TContext context = new())
+            {
+                context.Set<TEntity>().Add(entity);
+                context.SaveChanges();
+            }
         }
 
         public void Delete(TEntity entity)
         {
-            _dbSet.Remove(entity);
+            using (TContext context = new())
+            {
+                context.Set<TEntity>().Remove(entity);
+                context.SaveChanges();
+            }
         }
         public void DeleteMultiple(IEnumerable<TEntity> entities)
         {
-            _dbSet.RemoveRange(entities);
+            using (TContext context = new())
+            {
+                context.Set<TEntity>().RemoveRange(entities);
+                context.SaveChanges();
+            }
         }
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
-            return _dbSet.SingleOrDefault(filter);
+            using (TContext context = new())
+            {
+                return context.Set<TEntity>().SingleOrDefault(filter);
+            }
         }
 
         public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
         {
-            return filter == null
-                ? _dbSet.ToList()
-                : _dbSet.Where(filter).ToList();
+            using (TContext context = new())
+            {
+                return filter == null
+                ? context.Set<TEntity>().ToList()
+                : context.Set<TEntity>().Where(filter).ToList();
+            }
         }
 
         public void Update(TEntity entity)
         {
-            _dbSet.Update(entity);
+            using (TContext context = new())
+            {
+                context.Set<TEntity>().Update(entity);
+                context.SaveChanges();
+            }
 
             //_context.Entry(entity).State = EntityState.Modified;
         }

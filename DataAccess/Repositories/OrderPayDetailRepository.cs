@@ -3,10 +3,8 @@ using Entities.Models;
 
 namespace DataAccess.Repositories
 {
-    public class OrderPayDetailRepository : BaseRepository<OrderPayDetail>, IOrderPayDetailRepository
+    public class OrderPayDetailRepository : BaseRepository<OrderPayDetail,AppDbContext>, IOrderPayDetailRepository
     {
-        public OrderPayDetailRepository(AppDbContext context):base(context)
-        {
-        }
+        
     }
 }

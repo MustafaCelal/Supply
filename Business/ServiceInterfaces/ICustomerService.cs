@@ -1,11 +1,12 @@
-﻿using Entities.Models;
+﻿using Entities.DTOs.CustomerDTos;
+using Entities.Models;
 using System.Collections.Generic;
 
 namespace Business.ServiceInterfaces
 {
     public interface ICustomerService
     {
-        List<Customer> GetAll();
+        List<CustomerListDto> GetAll();
         Customer GetById(int id);
         void Add(Customer customer);
         void Update(Customer customer);

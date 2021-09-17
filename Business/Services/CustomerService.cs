@@ -1,8 +1,10 @@
 ﻿using Business.ServiceInterfaces;
 using DataAccess.RepositoryInterfaces;
+using Entities.DTOs.CustomerDTos;
 using Entities.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace Business.Services
@@ -36,9 +38,15 @@ namespace Business.Services
             return _customerRepository.Get(c=>c.Id==id);
         }
 
-        public List<Customer> GetAll()
+        public List<CustomerListDto> GetAll()
         {
-            return _customerRepository.GetAll();
+            return _customerRepository.GetAll().Select(c => new CustomerListDto
+            {
+                Id=c.Id,
+                Name = c.Name,
+                CompanyName = c.CompanyName,
+                PhoneNumber = c.PhoneNumber
+            }).ToList(); ;
         }
 
         public void Update(Customer entity)

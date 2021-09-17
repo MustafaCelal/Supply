@@ -26,9 +26,9 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var customer =_customerService.GetById(id);
+            var customer = _customerService.GetById(id);
             return Ok(customer);
-            //return _customerRepository.Get(filter);
+            
         }
 
         [HttpPost]
@@ -53,6 +53,7 @@ namespace WebAPI.Controllers
         //    _customerService.DeleteMultiple(entities);
         //    return Ok();
         //}
+
         [HttpPut]
         public IActionResult Update(Customer customer)
         {

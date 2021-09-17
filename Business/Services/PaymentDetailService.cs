@@ -1,6 +1,6 @@
 ﻿using Business.ServiceInterfaces;
 using DataAccess.RepositoryInterfaces;
-using Entities.DTOs.PaymentDetailDTOs;
+using Entities.DTOs;
 using Entities.Models;
 using System.Collections.Generic;
 using System.Linq;

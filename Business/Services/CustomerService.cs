@@ -1,6 +1,6 @@
 ﻿using Business.ServiceInterfaces;
 using DataAccess.RepositoryInterfaces;
-using Entities.DTOs.CustomerDTos;
+using Entities.DTOs;
 using Entities.Models;
 using System;
 using System.Collections.Generic;

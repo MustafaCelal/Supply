@@ -1,4 +1,4 @@
-﻿using Entities.DTOs.CustomerDTos;
+﻿using Entities.DTOs;
 using Entities.Models;
 using System.Collections.Generic;
 

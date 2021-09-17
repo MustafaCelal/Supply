@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Entities.DTOs.PaymentDetailDTOs
+namespace Entities.DTOs
 {
-    public class PaymentDetailDto:IDto
+    public class PaymentDetailDto : IDto
     {
         public int Id { get; set; }
         // If wants to go to the Supply detail, the supplyId should be returned.

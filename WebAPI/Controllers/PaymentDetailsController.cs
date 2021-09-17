@@ -22,12 +22,11 @@ namespace WebAPI.Controllers
             return Ok(paymentDetails);
         }
 
-
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var paymentDetail = _paymentDetailService.GetById(id);
-            return Ok(paymentDetail);
+            var paymentDetailDto = _paymentDetailService.GetById(id);
+            return Ok(paymentDetailDto);
         }
 
         [HttpPost]

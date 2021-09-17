@@ -18,8 +18,8 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var paymentDetails = _paymentDetailService.GetAll();
-            return Ok(paymentDetails);
+            var paymentList = _paymentDetailService.GetAll();
+            return Ok(paymentList);
         }
 
         [HttpGet("{id}")]

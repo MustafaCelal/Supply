@@ -11,7 +11,7 @@ namespace Entities.DTOs.PaymentDetailDTOs
         public decimal Price { get; set; }
         public decimal PreviousDept { get; set; }
         public decimal RecievedMoney { get; set; }
-        public decimal LastDept { get; set; }
+        public decimal RemainingDept { get; set; }
 
     }
 }

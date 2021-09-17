@@ -6,7 +6,7 @@ namespace Business.ServiceInterfaces
 {
     public interface IPaymentDetailService
     {
-        List<PaymentDetail> GetAll();
+        List<PaymentDetailDto> GetAll();
         PaymentDetailDto GetById(int id);
         void Add(PaymentDetail paymentDetail);
         void Update(PaymentDetail paymentDetail);

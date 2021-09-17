@@ -2,9 +2,8 @@
 using DataAccess.RepositoryInterfaces;
 using Entities.DTOs.PaymentDetailDTOs;
 using Entities.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 
 namespace Business.Services
 {
@@ -41,7 +40,7 @@ namespace Business.Services
             return new PaymentDetailDto
             {
                 Id = id,
-                LastDept = payments.LastDept,
+                RemainingDept = payments.RemainingDept,
                 PreviousDept = payments.PreviousDept,
                 RecievedMoney = payments.RecievedMoney,
                 SupplyId = supplyDetails.Id,
@@ -50,9 +49,22 @@ namespace Business.Services
             };
         }
 
-        public List<PaymentDetail> GetAll()
+        public List<PaymentDetailDto> GetAll()
         {
-            return _paymentDetailRepository.GetAll();
+            var payments = _paymentDetailRepository.GetAll();
+            var supplyDetails = _supplyService.GetAll();
+            
+            return payments.Join(
+                    supplyDetails, p => p.SupplyId, s => s.Id, (p, s) => new PaymentDetailDto
+                    {
+                        Id = p.Id,
+                        SupplyDate = s.SupplyDate,
+                        PreviousDept = p.PreviousDept,
+                        Price = s.TotalPrice,
+                        RecievedMoney = p.RecievedMoney,
+                        RemainingDept = p.RemainingDept,
+                        SupplyId = s.Id
+                    }).ToList();
         }
 
         public void Update(PaymentDetail entity)

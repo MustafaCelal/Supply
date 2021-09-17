@@ -17,7 +17,7 @@ namespace DataAccess.Configurations
 
             builder.Property(x => x.RecievedMoney).IsRequired().HasColumnType("decimal(7,2)");
             
-            builder.Property(x => x.LastDept).IsRequired().HasColumnType("decimal(7,2)");
+            builder.Property(x => x.RemainingDept).IsRequired().HasColumnType("decimal(7,2)");
 
             builder.ToTable("PaymentDetails");
 

@@ -1,12 +1,13 @@
-﻿using Entities.Models;
+﻿using Entities.DTOs;
+using Entities.Models;
 using System.Collections.Generic;
 
 namespace Business.ServiceInterfaces
 {
     public interface ISupplyProductService
     {
-        List<SupplyProduct> GetAll();
-        SupplyProduct GetById(int id);
+        List<SupplyProductDto> GetAll();
+        SupplyProductDto GetById(int id);
         void Add(SupplyProduct supplyProduct);
         void Update(SupplyProduct supplyProduct);
         void Delete(SupplyProduct supplyProduct);

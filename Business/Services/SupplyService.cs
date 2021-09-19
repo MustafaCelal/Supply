@@ -1,19 +1,20 @@
 ﻿using Business.ServiceInterfaces;
 using DataAccess.RepositoryInterfaces;
+using Entities.DTOs;
 using Entities.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
+using System.Linq;
 
 namespace Business.Services
 {
     public class SupplyService : ISupplyService
     {
         ISupplyRepository _supplyRepository;
-
-        public SupplyService(ISupplyRepository supplyRepository)
+        ICustomerService _customerService;
+        public SupplyService(ISupplyRepository supplyRepository, ICustomerService customerService)
         {
             _supplyRepository = supplyRepository;
+            _customerService = customerService;
         }
 
         public void Add(Supply entity)
@@ -31,14 +32,37 @@ namespace Business.Services
             _supplyRepository.DeleteMultiple(entities);
         }
 
-        public Supply GetById(int id)
+        public SupplyDto GetById(int id)
         {
-            return _supplyRepository.Get(s=>s.Id==id);
+            
+            var supply =_supplyRepository.Get(s => s.Id == id);
+            var customer = _customerService.GetById(supply.CustomerId);
+            return new SupplyDto
+            {
+                Id = supply.Id,
+                CustomerId = customer.Id,
+                TotalPrice = supply.TotalPrice,
+                SupplyDate = supply.SupplyDate,
+                Customer = customer.Name + "/" + customer.CompanyName
+            };
         }
 
-        public List<Supply> GetAll()
+        public List<SupplyDto> GetAll()
         {
-            return _supplyRepository.GetAll();
+            var supplies = _supplyRepository.GetAll();
+            var customers = _customerService.GetAll();
+            var res = from s in supplies
+                      join c in customers
+                      on s.CustomerId equals c.Id
+                      select new SupplyDto
+                      {
+                          Id = s.Id,
+                          CustomerId = c.Id,
+                          TotalPrice = s.TotalPrice,
+                          SupplyDate = s.SupplyDate,
+                          Customer = c.CompanyName + "/" + c.Name
+                      };
+            return res.ToList();
         }
 
         public void Update(Supply entity)

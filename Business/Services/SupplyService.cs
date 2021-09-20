@@ -9,8 +9,8 @@ namespace Business.Services
 {
     public class SupplyService : ISupplyService
     {
-        ISupplyRepository _supplyRepository;
-        ICustomerService _customerService;
+        private readonly ISupplyRepository _supplyRepository;
+        private readonly ICustomerService _customerService;
         public SupplyService(ISupplyRepository supplyRepository, ICustomerService customerService)
         {
             _supplyRepository = supplyRepository;

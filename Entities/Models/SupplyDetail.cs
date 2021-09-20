@@ -1,6 +1,6 @@
 ﻿namespace Entities.Models
 {
-    public class SupplyProduct : IEntity
+    public class SupplyDetail : IEntity
     {
         public int Id { get; set; }
         public int SupplyId { get; set; }

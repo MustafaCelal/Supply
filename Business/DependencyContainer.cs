@@ -29,8 +29,8 @@ namespace Business
             services.AddScoped<ISupplyService, SupplyService>();
             services.AddScoped<ISupplyRepository, SupplyRepository>();
             
-            services.AddScoped<ISupplyProductService, SupplyProductService>();
-            services.AddScoped<ISupplyProductRepository, SupplyProductRepository>();
+            services.AddScoped<ISupplyDetailService, SupplyDetailService>();
+            services.AddScoped<ISupplyDetailRepository, SupplyDetailRepository>();
             
             services.AddScoped<IPaymentDetailService, PaymentDetailService>();
             services.AddScoped<IPaymentDetailRepository, PaymentDetailRepository>();

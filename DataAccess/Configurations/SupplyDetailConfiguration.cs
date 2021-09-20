@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccess.Configurations
 {
-    public class SupplyProductConfiguration : IEntityTypeConfiguration<SupplyProduct>
+    public class SupplyDetailConfiguration : IEntityTypeConfiguration<SupplyDetail>
     {
-        public void Configure(EntityTypeBuilder<SupplyProduct> builder)
+        public void Configure(EntityTypeBuilder<SupplyDetail> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
@@ -17,7 +17,7 @@ namespace DataAccess.Configurations
             
             builder.Property(x => x.UnitPrice).IsRequired().HasColumnType("decimal(7,2)");
             
-            builder.ToTable("SupplyProductDetails");
+            builder.ToTable("SupplyDetails");
         }
     }
 }

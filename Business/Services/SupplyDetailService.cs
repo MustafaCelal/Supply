@@ -9,40 +9,40 @@ using System.Linq.Expressions;
 
 namespace Business.Services
 {
-    public class SupplyProductService : ISupplyProductService
+    public class SupplyDetailService : ISupplyDetailService
     {
-        ISupplyProductRepository _supplyProductRepository;
-        ISupplyService _supplyService;
-        IProductService _productService;
-        public SupplyProductService(ISupplyProductRepository supplyProductRepository, ISupplyService supplyService, IProductService productService)
+        private readonly ISupplyDetailRepository _supplyDetailRepository;
+        private readonly ISupplyService _supplyService;
+        private readonly IProductService _productService;
+        public SupplyDetailService(ISupplyDetailRepository supplyDetailRepository, ISupplyService supplyService, IProductService productService)
         {
-            _supplyProductRepository = supplyProductRepository;
+            _supplyDetailRepository = supplyDetailRepository;
             _supplyService = supplyService;
             _productService = productService;
         }
 
-        public void Add(SupplyProduct entity)
+        public void Add(SupplyDetail entity)
         {
-            _supplyProductRepository.Add(entity);
+            _supplyDetailRepository.Add(entity);
         }
 
-        public void Delete(SupplyProduct entity)
+        public void Delete(SupplyDetail entity)
         {
-            _supplyProductRepository.Delete(entity);
+            _supplyDetailRepository.Delete(entity);
         }
 
-        public void DeleteMultiple(IEnumerable<SupplyProduct> entities)
+        public void DeleteMultiple(IEnumerable<SupplyDetail> entities)
         {
-            _supplyProductRepository.DeleteMultiple(entities);
+            _supplyDetailRepository.DeleteMultiple(entities);
         }
 
-        public SupplyProductDto GetById(int id)
+        public SupplyDetailDto GetById(int id)
         {
-            var supplyProduct=_supplyProductRepository.Get(sp => sp.Id == id);
+            var supplyProduct=_supplyDetailRepository.Get(sp => sp.Id == id);
             var supply = _supplyService.GetById(supplyProduct.SupplyId);
             var product = _productService.GetById(supplyProduct.ProductId);
 
-            return new SupplyProductDto {
+            return new SupplyDetailDto {
                 Id = supplyProduct.Id, 
                 ProductId=product.Id,
                 ProductName = product.Name,
@@ -54,16 +54,16 @@ namespace Business.Services
             
         }
 
-        public List<SupplyProductDto> GetAll()
+        public List<SupplyDetailDto> GetAll()
         {
-            var supplyProducts = _supplyProductRepository.GetAll();
+            var supplyDetails = _supplyDetailRepository.GetAll();
             var supplyDates = _supplyService.GetAll();
             var productNames = _productService.GetAll();
 
-            var res = from sp in supplyProducts
+            var res = from sp in supplyDetails
                       join sd in supplyDates on sp.SupplyId equals sd.Id
                       join p in productNames on sp.ProductId equals p.Id
-                      select new SupplyProductDto
+                      select new SupplyDetailDto
                       {
                           Id = sp.Id,
                           ProductId=p.Id,
@@ -76,9 +76,9 @@ namespace Business.Services
             return res.ToList();
         }
 
-        public void Update(SupplyProduct entity)
+        public void Update(SupplyDetail entity)
         {
-            _supplyProductRepository.Update(entity);
+            _supplyDetailRepository.Update(entity);
         }
     }
 

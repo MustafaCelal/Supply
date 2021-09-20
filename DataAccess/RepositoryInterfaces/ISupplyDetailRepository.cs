@@ -2,7 +2,7 @@
 
 namespace DataAccess.RepositoryInterfaces
 {
-    public interface ISupplyProductRepository : IEntityRepository<SupplyProduct>
+    public interface ISupplyDetailRepository : IEntityRepository<SupplyDetail>
     {
     }
 }

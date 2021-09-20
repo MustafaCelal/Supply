@@ -2,7 +2,7 @@
 
 namespace Entities.DTOs
 {
-    public class SupplyProductDto:IDto
+    public class SupplyDetailDto:IDto
     {
         public int Id { get; set; }
 

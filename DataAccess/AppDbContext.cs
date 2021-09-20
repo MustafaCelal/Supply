@@ -15,7 +15,7 @@ namespace DataAccess
         }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Supply> Supplies { get; set; }
-        public DbSet<SupplyProduct> SupplyProducts { get; set; }
+        public DbSet<SupplyDetail> SupplyDetails { get; set; }
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<Product> Products { get; set; }
 
@@ -26,7 +26,7 @@ namespace DataAccess
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerConfiguration());
             modelBuilder.ApplyConfiguration(new SupplyConfiguration());
-            modelBuilder.ApplyConfiguration(new SupplyProductConfiguration());
+            modelBuilder.ApplyConfiguration(new SupplyDetailConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentDetailConfiguration());
 
             modelBuilder.ApplyConfiguration(new ProductSeed());

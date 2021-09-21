@@ -2,8 +2,10 @@
 using DataAccess.RepositoryInterfaces;
 using Entities.DTOs;
 using Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Business.Services
 {
@@ -31,46 +33,33 @@ namespace Business.Services
         {
             _paymentDetailRepository.DeleteMultiple(entities);
         }
-
-        public PaymentDetailDto GetById(int id)
-        {
-            var payments=_paymentDetailRepository.Get(pd => pd.Id == id);
-            var supplyDetails = _supplyService.GetById(payments.SupplyId);
-
-            return new PaymentDetailDto
-            {
-                Id = id,
-                RemainingDept = payments.RemainingDept,
-                PreviousDept = payments.PreviousDept,
-                RecievedMoney = payments.RecievedMoney,
-                SupplyId = supplyDetails.Id,
-                Price = supplyDetails.TotalPrice,
-                SupplyDate = supplyDetails.SupplyDate
-            };
-        }
-
-        public List<PaymentDetailDto> GetAll()
-        {
-            var payments = _paymentDetailRepository.GetAll();
-            var supplyDetails = _supplyService.GetAll();
-            
-            return payments.Join(
-                    supplyDetails, p => p.SupplyId, s => s.Id, (p, s) => new PaymentDetailDto
-                    {
-                        Id = p.Id,
-                        SupplyDate = s.SupplyDate,
-                        PreviousDept = p.PreviousDept,
-                        Price = s.TotalPrice,
-                        RecievedMoney = p.RecievedMoney,
-                        RemainingDept = p.RemainingDept,
-                        SupplyId = s.Id
-                    }).ToList();
-        }
-
+       
         public void Update(PaymentDetail entity)
         {
             _paymentDetailRepository.Update(entity);
         }
+
+        public List<PaymentDetail> GetAll(Expression<Func<PaymentDetail, bool>> filter = null)
+        {
+            return _paymentDetailRepository.GetAll(filter);
+        }
+        
+        public PaymentDetail GetById(int id)
+        {
+            return _paymentDetailRepository.GetById(id);
+        }
+
+        public PaymentDetailDto GetByIdWithSupplyDetail(int id)
+        {
+            return _paymentDetailRepository.GetByIdWithSupplyDetail(id);
+        }
+        
+        public List<PaymentDetailDto> GetAllWithSupplyDetail(Expression<Func<PaymentDetail, bool>> filter = null)
+        {
+            return _paymentDetailRepository.GetAllWithSupplyDetail(filter);
+            
+        }
+
     }
 
 }

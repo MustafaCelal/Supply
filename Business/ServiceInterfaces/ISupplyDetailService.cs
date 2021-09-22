@@ -6,8 +6,10 @@ namespace Business.ServiceInterfaces
 {
     public interface ISupplyDetailService
     {
-        List<SupplyDetailDto> GetAll();
-        SupplyDetailDto GetById(int id);
+        List<SupplyDetail> GetAll();
+        List<SupplyDetailDto> GetAllWithDetail();
+        SupplyDetail GetById(int id);
+        SupplyDetailDto GetByIdWithDetail(int id);
         void Add(SupplyDetail supplyDetail);
         void Update(SupplyDetail supplyDetail);
         void Delete(SupplyDetail supplyDetail);

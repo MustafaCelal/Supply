@@ -21,12 +21,26 @@ namespace WebAPI.Controllers
             var supplyDetails = _supplyDetailService.GetAll();
             return Ok(supplyDetails);
         }
+        
+        [HttpGet("GetAllWithDetail")]
+        public IActionResult GetAllWithDetail()
+        {
+            var supplyDetails = _supplyDetailService.GetAllWithDetail();
+            return Ok(supplyDetails);
+        }
 
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var supplyDetail = _supplyDetailService.GetById(id);
+            return Ok(supplyDetail);
+        }
+        
+        [HttpGet("GetByIdWithDetail/{id}")]
+        public IActionResult GetByIdWithDetail(int id)
+        {
+            var supplyDetail = _supplyDetailService.GetByIdWithDetail(id);
             return Ok(supplyDetail);
         }
 

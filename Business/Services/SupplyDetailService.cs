@@ -36,44 +36,24 @@ namespace Business.Services
             _supplyDetailRepository.DeleteMultiple(entities);
         }
 
-        public SupplyDetailDto GetById(int id)
+        public SupplyDetail GetById(int id)
         {
-            var supplyProduct=_supplyDetailRepository.Get(sp => sp.Id == id);
-            var supply = _supplyService.GetById(supplyProduct.SupplyId);
-            var product = _productService.GetById(supplyProduct.ProductId);
-
-            return new SupplyDetailDto {
-                Id = supplyProduct.Id, 
-                ProductId=product.Id,
-                ProductName = product.Name,
-                Quantity = supplyProduct.Quantity,
-                SupplyId=supply.Id,
-                SupplyDate = supply.SupplyDate, 
-                UnitPrice = supplyProduct.UnitPrice 
-            };
-            
+            return _supplyDetailRepository.Get(sp => sp.Id == id);
+        }
+        
+        public SupplyDetailDto GetByIdWithDetail(int id)
+        {
+            return _supplyDetailRepository.GetByIdWithDetail(id);
         }
 
-        public List<SupplyDetailDto> GetAll()
+        public List<SupplyDetail> GetAll()
         {
-            var supplyDetails = _supplyDetailRepository.GetAll();
-            var supplyDates = _supplyService.GetAll();
-            var productNames = _productService.GetAll();
-
-            var res = from sp in supplyDetails
-                      join sd in supplyDates on sp.SupplyId equals sd.Id
-                      join p in productNames on sp.ProductId equals p.Id
-                      select new SupplyDetailDto
-                      {
-                          Id = sp.Id,
-                          ProductId=p.Id,
-                          ProductName = p.Name,
-                          Quantity = sp.Quantity,
-                          SupplyId=sd.Id,
-                          SupplyDate = sd.SupplyDate,
-                          UnitPrice = p.UnitPrice
-                      };
-            return res.ToList();
+            return _supplyDetailRepository.GetAll();
+        }
+        
+        public List<SupplyDetailDto> GetAllWithDetail()
+        {
+            return _supplyDetailRepository.GetAllWithDetail();
         }
 
         public void Update(SupplyDetail entity)

@@ -11,7 +11,10 @@ namespace DataAccess
         //{ }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Supply;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(
+                @"Server=127.0.0.1,1433; Database=Supply; User Id=SA; Password=Passw0rd"
+                //@"Server=(localdb)\mssqllocaldb;Database=Supply;Trusted_Connection=true"
+                );
         }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Supply> Supplies { get; set; }

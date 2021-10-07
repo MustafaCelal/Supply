@@ -363,3 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 /DataAccess/UnitOfWorks
 /DataAccess/Migrations
+.vscode/
+.gitignore
+.vscode/settings.json
+.DS_Store

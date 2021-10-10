@@ -26,7 +26,7 @@ IOC Containers
 
 <!-- <summary><h2>API Kullanımı</h2></summary> -->
 ## API Kullanımı
-<details>
+<details open>
 
 #### Customers
 
